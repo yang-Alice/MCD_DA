@@ -124,7 +124,7 @@ label_transform = Compose([
 
 src_dataset = get_dataset(dataset_name=args.src_dataset, split=args.src_split, img_transform=img_transform,
                           label_transform=label_transform, test=False, input_ch=args.input_ch)
-
+print('args.tgt_dataset',args.tgt_dataset)
 tgt_dataset = get_dataset(dataset_name=args.tgt_dataset, split=args.tgt_split, img_transform=img_transform,
                           label_transform=label_transform, test=False, input_ch=args.input_ch)
 
@@ -162,7 +162,8 @@ for epoch in range(start_epoch, args.epochs):
 
         if torch.cuda.is_available():
             src_imgs, src_lbls, tgt_imgs = src_imgs.cuda(), src_lbls.cuda(), tgt_imgs.cuda()
-
+        print('torch.cuda.is_available()',torch.cuda.is_available())
+        
         # update generator and classifiers by source samples
         optimizer_g.zero_grad()
         optimizer_f.zero_grad()
@@ -172,11 +173,18 @@ for epoch in range(start_epoch, args.epochs):
 
         outputs1 = model_f1(outputs)
         outputs2 = model_f2(outputs)
-
+        #print('outputs1',outputs1.size())
+        #print('outputs2',outputs2.size())
+        #print('src_lbls',src_lbls)
         loss += criterion(outputs1, src_lbls)
+        #print('loss1:',loss)
         loss += criterion(outputs2, src_lbls)
+        #print('loss2:',loss)
         loss.backward()
-        c_loss = loss.data[0]
+	#print('loss backward:',loss)
+	print('loss.data:',loss.data)
+        #c_loss = loss.data[0]
+	c_loss = loss.data
         c_loss_per_epoch += c_loss
 
         optimizer_g.step()
