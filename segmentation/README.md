@@ -29,7 +29,7 @@ Trained models will be saved as “./train_output/gta-train2city-train_3ch/pth/M
 
 ### Test
 ```
-python adapt_tester.py city ./train_output/gta-train2city-train_3ch/pth/normal-drn_d_105-res50-EPOCH.pth.tar
+python adapt_tester.py city ./train_output/gta-train2city-train_3ch/pth/MCD-normal-drn_d_105-5.pth.tar
 ```
 
 Results will be saved under "./test_output/gta-train2city-train_3ch---city-val/MCD-normal-drn_d_105-5.tar"
